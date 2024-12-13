@@ -10,7 +10,6 @@ use solana_sdk::{
 use std::{env, fs, fs::File, io::Read, path::PathBuf, str::FromStr};
 
 fn main() {
-    // Get the program ID from the command-line arguments
     let args: Vec<String> = env::args().collect();
     if args.len() != 2 {
         eprintln!("Usage: {} <programId>", args[0]);
@@ -89,11 +88,11 @@ fn main() {
                         println!("Data Length: {}", account.data.len());
                     }
                     Err(err) => {
-                        println!("IDL Account Not Found: {}", err);
+                        println!("possibly VULNERABLE - IDL Account Not Found: {}", err);
                     }
                 }
             } else {
-                println!("Conditions not met. Skipping IDL account check.");
+                println!("Probably not Vulnerable - Skipping IDL account check. (no anchor:idl/idlCreateAccount) found");
             }
 
             if let Err(err) = fs::remove_file(&out_file) {
